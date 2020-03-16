@@ -1,0 +1,18 @@
+PODS:
+  - MetalPetal (1.9.0):
+    - MetalPetal/Core (= 1.9.0)
+  - MetalPetal/Core (1.9.0)
+
+DEPENDENCIES:
+  - MetalPetal
+
+SPEC REPOS:
+  trunk:
+    - MetalPetal
+
+SPEC CHECKSUMS:
+  MetalPetal: 07d93f6b0e8bcdd4da238dbb2b769b5405f183c0
+
+PODFILE CHECKSUM: b4ef26040d2ba680f38c7f9c6ee185395a1fc2e9
+
+COCOAPODS: 1.8.4
