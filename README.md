@@ -13,6 +13,7 @@ Follow the tutorial at [alfianlosari.com](https://alfianlosari.com "Alfian Losar
 
 ## Requirements
 - Xcode 11.3
+- macOS 10.15 Catalina
 
 ## Getting Started
 - Clone or download
