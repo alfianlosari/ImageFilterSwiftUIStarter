@@ -16,4 +16,5 @@ Follow the tutorial at [alfianlosari.com](https://alfianlosari.com "Alfian Losar
 
 ## Getting Started
 - Clone or download
+- Run pod install
 - Build and Run
