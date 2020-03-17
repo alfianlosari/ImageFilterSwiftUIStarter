@@ -1,3 +1,4 @@
+
 //
 //  ImageFilter.swift
 //  ImageFilterMac
@@ -24,10 +25,10 @@ enum ImageFilter: String, Identifiable, Hashable, CaseIterable {
     case skinSmoothing = "Skin Smoothing"
     case colorHalfTone = "Halftone"
     
-    func performFilter(with image: CPImage, queue: DispatchQueue = serialQueue, completion: @escaping(CPImage) -> ()) {
+    func performFilter(with image: NSImage, queue: DispatchQueue = serialQueue, completion: @escaping(NSImage) -> ()) {
         
         DispatchQueue.global(qos: .userInitiated).async {
-            let outputImage: CPImage
+            let outputImage: NSImage
             
             switch self {
             case .default:
@@ -96,11 +97,6 @@ enum ImageFilter: String, Identifiable, Hashable, CaseIterable {
                     filter.inputImage = inputImage
                     return filter.outputImage
                 }
-                
-                
-                
-   
-                
             }
             
             DispatchQueue.main.async {
@@ -109,9 +105,12 @@ enum ImageFilter: String, Identifiable, Hashable, CaseIterable {
         }
     }
     
-    private func processFilterWithMetal(image: CPImage, filterHandler: (MTIImage) -> MTIImage?) -> CPImage {
-        guard let ciImage = image.coreImage else {
-            return image
+    private func processFilterWithMetal(image: NSImage, filterHandler: (MTIImage) -> MTIImage?) -> NSImage {
+        guard
+            let tiffData = image.tiffRepresentation,
+            let ciImage = CIImage(data: tiffData)
+            else {
+                return image
         }
         
         let imageFromCIImage = MTIImage(ciImage: ciImage).unpremultiplyingAlpha()
@@ -121,14 +120,11 @@ enum ImageFilter: String, Identifiable, Hashable, CaseIterable {
         }
         do {
             let outputCGImage = try context.makeCGImage(from: outputFilterImage)
-            let nsImage = outputCGImage.cpImage
+            return NSImage(cgImage: outputCGImage, size: .init(width: outputCGImage.width, height: outputCGImage.height))
             
-            return nsImage
         } catch {
             print(error)
             return image
         }
     }
 }
-
-
